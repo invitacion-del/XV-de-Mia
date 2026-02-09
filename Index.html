@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XV Mia Monzon</title>
+  <style>
+    :root {
+      --bg1: #0b0f2a;
+      --bg2: #1b0f3b;
+      --bg3: #2b1a59;
+      --bg4: #4b1b5f;
+      --accent: #ffd166;
+      --accent-2: #f08ccf;
+      --accent-3: #a0c4ff;
+      --text: #f6f2ff;
+      --muted: #c9c3e6;
+      --card: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(255, 255, 255, 0.08), transparent 60%),
+        radial-gradient(900px 700px at 90% 20%, rgba(255, 255, 255, 0.06), transparent 55%),
+        radial-gradient(800px 600px at 30% 80%, rgba(255, 255, 255, 0.05), transparent 50%),
+        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.4), transparent);
+      opacity: 0.7;
+      animation: drift 20s linear infinite;
+    }
+
+    @keyframes drift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-30px); }
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 70px 18px 110px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      filter: blur(4px);
+      opacity: 0.45;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 209, 102, 0.8), transparent 65%);
+      animation: float 12s ease-in-out infinite;
+    }
+
+    .orb.o1 { top: 6%; left: -80px; }
+    .orb.o2 {
+      bottom: 10%;
+      right: -90px;
+      background: radial-gradient(circle at 70% 30%, rgba(160, 196, 255, 0.8), transparent 65%);
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-24px); }
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.2rem);
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-shadow: 0 0 20px rgba(255, 209, 102, 0.45);
+      margin-bottom: 6px;
+    }
+
+    .hero .subtitle {
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px 20px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .date-list {
+      display: grid;
+      gap: 8px;
+      margin: 10px 0 12px;
+      font-weight: 700;
+      color: #ffe3f5;
+    }
+
+    .date-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(240, 140, 207, 0.18);
+      border: 1px solid rgba(240, 140, 207, 0.35);
+      font-size: 1rem;
+    }
+
+    .section {
+      margin: 22px 0;
+      padding: 24px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(8px);
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      color: var(--accent-2);
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      color: var(--text);
+      font-size: 1.03rem;
+      line-height: 1.6;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+    }
+
+    .reveal.visible[data-anim="rise"] { animation: rise 0.9s ease forwards; }
+    .reveal.visible[data-anim="pop"] { animation: pop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    .reveal.visible[data-anim="fade"] { animation: fade 0.9s ease forwards; }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes pop {
+      0% { opacity: 0; transform: translateY(28px) scale(0.92); }
+      70% { opacity: 1; transform: translateY(-4px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes fade {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .cta-card {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(120% 120% at 10% 10%, rgba(255, 209, 102, 0.18), transparent 55%),
+        radial-gradient(120% 120% at 90% 90%, rgba(160, 196, 255, 0.18), transparent 55%),
+        rgba(12, 10, 30, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      inset: -40% 40% auto auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent 70%);
+      opacity: 0.3;
+      transform: rotate(15deg);
+    }
+
+    .buttons {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      text-decoration: none;
+      color: #1a1426;
+      background: linear-gradient(135deg, var(--accent), #ffe6a6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 18px rgba(255, 209, 102, 0.35);
+    }
+
+    .btn.secondary {
+      background: linear-gradient(135deg, var(--accent-3), #bdb2ff);
+      color: #1b1432;
+      box-shadow: 0 8px 18px rgba(160, 196, 255, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .pulse {
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 209, 102, 0.25); }
+      50% { box-shadow: 0 0 0 14px rgba(255, 209, 102, 0); }
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      margin: 18px 0;
+    }
+
+    .alias {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 30px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 60px 16px 90px; }
+      .section { padding: 22px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stars, .orb, .pulse { animation: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="orbs" aria-hidden="true">
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="badge">XV</div>
+      <h1>Mia Monzon</h1>
+      <p class="subtitle">Te invito a mis XV</p>
+      <div class="hero-card">
+        <div class="date-list">
+          <div class="date-item">7 y 8 de marzo</div>
+          <div class="date-item">12 a 20 hs</div>
+        </div>
+        <p>
+          Va a ser un momento muy especial y me encantaria compartirlo con vos.
+        </p>
+      </div>
+    </section>
+
+    <section class="section reveal cta-card" data-anim="pop" data-delay="0">
+      <h2>Confirmar y ubicacion</h2>
+      <p>
+        Desliz&aacute; hacia abajo y toc&aacute; el bot&oacute;n que quieras.
+      </p>
+      <div class="buttons">
+        <a class="btn pulse" href="https://wa.me/+5491155721617" target="_blank" rel="noopener">
+          Confirmar asistencia
+        </a>
+        <a class="btn secondary" href="https://www.google.com/maps?q=-34.9223206,-58.5708071&z=17&hl=es" target="_blank" rel="noopener">
+          Ver la ubicaci&oacute;n
+        </a>
+      </div>
+    </section>
+
+    <section class="section reveal" data-anim="rise" data-delay="120">
+      <h2>Regalo</h2>
+      <p>
+        El mejor regalo que me podes dar es tu presencia, pero si me queres dar
+        algo mas este es mi alias:
+      </p>
+      <div class="alias">ALIAS: TU_ALIAS_AQUI</div>
+      <div class="divider"></div>
+      <p>
+        Gracias por acompa&ntilde;arme en este momento tan especial.
+      </p>
+      <p class="note">Tu presencia es el mejor regalo.</p>
+    </section>
+
+    <footer>Con mucho cari&ntilde;o, Mia</footer>
+  </main>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".reveal").forEach((el) => {
+      const delay = Number(el.dataset.delay || 0);
+      el.style.animationDelay = `${delay}ms`;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
